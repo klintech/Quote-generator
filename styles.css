@@ -40,8 +40,15 @@ body {
     transition: opacity 0.3s ease;
 }
 
-#copyButton {
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     margin-top: 20px;
+}
+
+#nextButton,
+#copyButton {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
@@ -49,13 +56,15 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
+#nextButton:hover,
 #copyButton:hover {
     background-color: #0056b3;
 }
 
+#nextButton:active,
 #copyButton:active {
     transform: scale(0.98);
 }
