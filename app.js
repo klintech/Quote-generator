@@ -1,4 +1,5 @@
 let currentQuoteIndex = -1;
+let quoteHistory = [];
 
 function getRandomQuote() {
     let newIndex;
@@ -7,10 +8,11 @@ function getRandomQuote() {
     } while (newIndex === currentQuoteIndex);
 
     currentQuoteIndex = newIndex;
+    quoteHistory.push(currentQuoteIndex);
     return quotes[currentQuoteIndex];
 }
 
-function updateQuote() {
+function updateQuote(direction = 'next') {
     const quoteElement = document.getElementById('quote');
     const authorElement = document.getElementById('author');
 
@@ -19,9 +21,19 @@ function updateQuote() {
     authorElement.style.opacity = 0;
 
     setTimeout(() => {
-        const { text, author } = getRandomQuote();
-        quoteElement.textContent = `"${text}"`;
-        authorElement.textContent = `- ${author}`;
+        let quote;
+        if (direction === 'next') {
+            quote = getRandomQuote();
+        } else if (direction === 'prev' && quoteHistory.length > 1) {
+            quoteHistory.pop(); // Remove current quote
+            currentQuoteIndex = quoteHistory[quoteHistory.length - 1];
+            quote = quotes[currentQuoteIndex];
+        } else {
+            quote = getRandomQuote();
+        }
+
+        quoteElement.textContent = `"${quote.text}"`;
+        authorElement.textContent = `- ${quote.author}`;
 
         // Fade in
         quoteElement.style.opacity = 1;
@@ -29,6 +41,9 @@ function updateQuote() {
 
         // Change background color
         document.body.style.backgroundColor = getRandomColor();
+
+        // Update button states
+        updateButtonStates();
     }, 300);
 }
 
@@ -37,12 +52,21 @@ function getRandomColor() {
     return `hsl(${hue}, 70%, 90%)`;
 }
 
+function updateButtonStates() {
+    const prevButton = document.getElementById('prevButton');
+    prevButton.disabled = quoteHistory.length <= 1;
+    prevButton.style.opacity = prevButton.disabled ? 0.5 : 1;
+}
+
 // Initial quote
 updateQuote();
 
-// Next quote button functionality
+// Navigation button functionality
+const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
-nextButton.addEventListener('click', updateQuote);
+
+prevButton.addEventListener('click', () => updateQuote('prev'));
+nextButton.addEventListener('click', () => updateQuote('next'));
 
 // Copy functionality
 const copyButton = document.getElementById('copyButton');

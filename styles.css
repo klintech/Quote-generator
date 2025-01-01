@@ -10,12 +10,13 @@ body {
 }
 
 .quote-container {
+    display: flex;
+    align-items: center;
     background-color: white;
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 600px;
+    max-width: 800px;
     width: 90%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -23,6 +24,12 @@ body {
 .quote-container:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.quote-content {
+    flex-grow: 1;
+    text-align: center;
+    padding: 0 20px;
 }
 
 #quote {
@@ -40,15 +47,26 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+.nav-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #007bff;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.1s ease;
+    padding: 10px;
 }
 
-#nextButton,
+.nav-button:hover {
+    color: #0056b3;
+}
+
+.nav-button:active {
+    transform: scale(0.95);
+}
+
 #copyButton {
+    margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
@@ -59,12 +77,10 @@ body {
     transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-#nextButton:hover,
 #copyButton:hover {
     background-color: #0056b3;
 }
 
-#nextButton:active,
 #copyButton:active {
     transform: scale(0.98);
 }
