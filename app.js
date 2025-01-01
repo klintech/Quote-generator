@@ -41,4 +41,24 @@ function getRandomColor() {
 updateQuote();
 
 // Update quote every 30 seconds
-setInterval(updateQuote, 10000);
+setInterval(updateQuote, 30000);
+
+// Copy functionality
+const copyButton = document.getElementById('copyButton');
+
+copyButton.addEventListener('click', () => {
+    const quoteText = document.getElementById('quote').textContent;
+    const authorText = document.getElementById('author').textContent;
+    const fullQuote = `${quoteText} ${authorText}`;
+
+    navigator.clipboard.writeText(fullQuote).then(() => {
+        // Change button text temporarily to indicate successful copy
+        const originalText = copyButton.textContent;
+        copyButton.textContent = 'Copied!';
+        setTimeout(() => {
+            copyButton.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
+    });
+});
