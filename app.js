@@ -40,8 +40,8 @@ function getRandomColor() {
 // Initial quote
 updateQuote();
 
-// Update quote every 30 seconds
-setInterval(updateQuote, 30000);
+// Update quote every 4 seconds
+setInterval(updateQuote, 4000);
 
 // Copy functionality
 const copyButton = document.getElementById('copyButton');
